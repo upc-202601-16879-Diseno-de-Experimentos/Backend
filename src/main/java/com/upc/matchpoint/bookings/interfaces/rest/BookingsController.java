@@ -3,6 +3,7 @@ package com.upc.matchpoint.bookings.interfaces.rest;
 import com.upc.matchpoint.bookings.domain.model.commands.DeleteBookingCommand;
 import com.upc.matchpoint.bookings.domain.model.queries.GetAllBookingsQuery;
 import com.upc.matchpoint.bookings.domain.model.queries.GetBookingByIdQuery;
+import com.upc.matchpoint.bookings.domain.model.queries.GetBookingsByCoachIdQuery;
 import com.upc.matchpoint.bookings.domain.services.BookingCommandService;
 import com.upc.matchpoint.bookings.domain.services.BookingQueryService;
 import com.upc.matchpoint.bookings.interfaces.rest.resources.BookingResource;
@@ -42,6 +43,16 @@ public class BookingsController {
     @GetMapping
     public ResponseEntity<List<BookingResource>> getAllBookings() {
         var query = new GetAllBookingsQuery();
+        var bookings = bookingQueryService.handle(query);
+        var bookingResources = bookings.stream()
+                .map(BookingResourceFromEntityAssembler::toResourceFromEntity)
+                .toList();
+        return ResponseEntity.ok(bookingResources);
+    }
+
+    @GetMapping("/coach/{coachId}")
+    public ResponseEntity<List<BookingResource>> getBookingsByCoachId(@PathVariable Long coachId) {
+        var query = new GetBookingsByCoachIdQuery(coachId);
         var bookings = bookingQueryService.handle(query);
         var bookingResources = bookings.stream()
                 .map(BookingResourceFromEntityAssembler::toResourceFromEntity)

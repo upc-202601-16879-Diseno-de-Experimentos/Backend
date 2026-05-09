@@ -1,5 +1,6 @@
 package com.upc.matchpoint.bookings.domain.model.aggregates;
 
+import com.upc.matchpoint.coaches.domain.model.aggregates.Coach;
 import com.upc.matchpoint.courts.domain.model.aggregates.Court;
 import com.upc.matchpoint.users.domain.model.aggregates.UserProfile;
 import jakarta.persistence.*;
@@ -32,6 +33,10 @@ public class Booking {
     @JoinColumn(name = "court_id", nullable = false)
     private Court court;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "coach_id")
+    private Coach coach;
+
     @Column(nullable = false)
     private LocalDateTime createdAt;
 
@@ -45,6 +50,11 @@ public class Booking {
         this.endTime = endTime;
         this.user = user;
         this.court = court;
+    }
+
+    public Booking(LocalDateTime startTime, LocalDateTime endTime, UserProfile user, Court court, Coach coach) {
+        this(startTime, endTime, user, court);
+        this.coach = coach;
     }
 
     public void updateBooking(LocalDateTime startTime, LocalDateTime endTime) {
@@ -63,6 +73,10 @@ public class Booking {
 
     public Court getCourt() {
         return this.court;
+    }
+
+    public Coach getCoach() {
+        return this.coach;
     }
 
     public LocalDateTime getStartTime() {
@@ -88,6 +102,10 @@ public class Booking {
 
     public void setCourt(Court court) {
         this.court = court;
+    }
+
+    public void setCoach(Coach coach) {
+        this.coach = coach;
     }
 
     public void setStartTime(LocalDateTime startTime) {

@@ -9,7 +9,8 @@ public class CreateBookingCommandFromResourceAssembler {
                 resource.startTime(),
                 resource.endTime(),
                 resource.userId(),
-                resource.courtId()
+                resource.courtId(),
+                resource.coachId()
         );
     }
 }
