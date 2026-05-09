@@ -31,4 +31,9 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### MatchPoint Specific ###
+!src/test/
+!tests/
+!target/surefire-reports/
 backend-design.md

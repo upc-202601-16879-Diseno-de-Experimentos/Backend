@@ -1,7 +1,6 @@
 package com.upc.matchpoint.bookings.interfaces.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.upc.matchpoint.bookings.infrastructure.persistence.jpa.repositories.BookingRepository;
 import com.upc.matchpoint.bookings.interfaces.rest.resources.CreateBookingResource;
 import com.upc.matchpoint.coaches.domain.model.aggregates.Coach;
 import com.upc.matchpoint.coaches.infrastructure.persistence.jpa.repositories.CoachRepository;
@@ -21,7 +20,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -68,11 +66,12 @@ class CoachBookingIntegrationTest {
         // Arrange: Crear una reserva con coach
         LocalDateTime startTime = LocalDateTime.now().plusDays(2);
         LocalDateTime endTime = startTime.plusHours(1);
-        CreateBookingResource resource = new CreateBookingResource(startTime, endTime, user.getId(), court.getId(), coach.getId());
+        CreateBookingResource resource = new CreateBookingResource(startTime, endTime, user.getId(), court.getId(),
+                coach.getId());
 
         mockMvc.perform(post("/api/v1/bookings")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(resource)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(resource)))
                 .andExpect(status().isCreated());
 
         // Act & Assert: Consultar las reservas del coach
