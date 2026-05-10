@@ -15,23 +15,18 @@ jobs:
 
     services:
       database:
-        image: mysql:latest
+        image: postgres:latest
         ports:
-          - 3306:3306
-        options: >-
-          --health-cmd "mysqladmin ping"
-          --health-interval 20s
-          --health-timeout 10s
-          --health-retries 5
+          - 5432:5432
         env:
-          MYSQL_DATABASE: "spring"
-          MYSQL_PASSWORD: "password"
-          MYSQL_ROOT_PASSWORD: "password"
+          POSTGRES_DB: "spring"
+          POSTGRES_USER: "root"
+          POSTGRES_PASSWORD: "password"
 
     env:
       SPRING_PROFILES_ACTIVE: test
       DB_HOST: localhost
-      DB_PORT: 3306
+      DB_PORT: 5432
 
     steps:
       - name: Checkout code
