@@ -49,6 +49,11 @@ class BookingIntegrationTest {
 
     @BeforeEach
     void setUp() {
+        // Limpiar base de datos para asegurar aislamiento
+        bookingRepository.deleteAll();
+        userProfileRepository.deleteAll();
+        courtRepository.deleteAll();
+
         // Arrange: Preparar datos base en la BD
         user = new UserProfile("Integration User", "test@integration.com", "999888777");
         user = userProfileRepository.save(user);
