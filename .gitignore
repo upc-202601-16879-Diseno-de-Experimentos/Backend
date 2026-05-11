@@ -17,6 +17,7 @@ target/
 .idea
 *.iws
 *.iml
+temp_auto_push.bat
 *.ipr
 
 ### NetBeans ###
@@ -30,10 +31,11 @@ build/
 !**/src/test/**/build/
 
 ### VS Code ###
-.vscode/
 
 ### MatchPoint Specific ###
 !src/test/
 !tests/
 !target/surefire-reports/
 backend-design.md
+.gitignore
+branch_structure.json
