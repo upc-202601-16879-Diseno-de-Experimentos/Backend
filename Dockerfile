@@ -19,6 +19,6 @@ COPY --from=build /workspace/target/*.jar /app/app.jar
 
 EXPOSE 8080
 
-# Render provides $PORT at runtime; use shell form to allow env expansion
-ENTRYPOINT ["sh","-c","java -Dserver.port=$PORT -jar /app/app.jar"]
+# Render/Railway provides $PORT at runtime; Spring Boot reads it via application.properties
+ENTRYPOINT ["sh","-c","java -jar /app/app.jar"]
 

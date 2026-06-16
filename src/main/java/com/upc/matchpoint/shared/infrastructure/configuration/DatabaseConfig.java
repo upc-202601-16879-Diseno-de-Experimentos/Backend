@@ -28,6 +28,7 @@ public class DatabaseConfig {
         // Prefer explicit environment variable DATABASE_URL used by Render.
         // Try multiple common env/property names and treat empty values as absent.
         String raw = System.getenv("DATABASE_URL");
+        if (raw == null || raw.isBlank()) raw = System.getenv("MYSQL_URL"); // Soporte nativo para Railway
         if (raw == null || raw.isBlank()) raw = System.getenv("SPRING_DATASOURCE_URL");
         if (raw == null || raw.isBlank()) raw = System.getenv("JDBC_DATABASE_URL");
         if (raw == null || raw.isBlank()) raw = env.getProperty("spring.datasource.url");
