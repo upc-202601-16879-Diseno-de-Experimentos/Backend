@@ -1,0 +1,138 @@
+{
+  "summary": {
+    "created_ids": {
+      "coach_id": 1,
+      "court_id": 1,
+      "profile_id": null,
+      "user_id": null,
+      "booking_id": null,
+      "payment_id": null
+    }
+  },
+  "results": [
+    {
+      "endpoint": "/authentication/sign-up",
+      "method": "POST",
+      "status_code": 401,
+      "body": ""
+    },
+    {
+      "endpoint": "/authentication/sign-in",
+      "method": "POST",
+      "status_code": 401,
+      "body": ""
+    },
+    {
+      "endpoint": "/roles",
+      "method": "GET",
+      "status_code": 401,
+      "response_text": ""
+    },
+    {
+      "endpoint": "/coaches",
+      "method": "POST",
+      "status_code": 201,
+      "response_json": {
+        "id": 1,
+        "name": "Test Coach",
+        "expertise": "Tennis",
+        "phone": "+511234567"
+      }
+    },
+    {
+      "endpoint": "/courts",
+      "method": "POST",
+      "status_code": 201,
+      "response_json": {
+        "id": 1,
+        "name": "Court 1",
+        "location": "Local Gym",
+        "type": "INDOOR"
+      }
+    },
+    {
+      "endpoint": "/user-profiles",
+      "method": "POST",
+      "status_code": 401,
+      "response_text": ""
+    },
+    {
+      "endpoint": "/users",
+      "method": "GET",
+      "status_code": 401,
+      "response_text": ""
+    },
+    {
+      "endpoint": "/coaches",
+      "method": "GET",
+      "status_code": 401,
+      "response_text": ""
+    },
+    {
+      "endpoint": "/courts",
+      "method": "GET",
+      "status_code": 401,
+      "response_text": ""
+    },
+    {
+      "endpoint": "/user-profiles",
+      "method": "GET",
+      "status_code": 401,
+      "response_text": ""
+    },
+    {
+      "endpoint": "/bookings",
+      "method": "GET",
+      "status_code": 200,
+      "response_json": []
+    },
+    {
+      "endpoint": "/payments",
+      "method": "GET",
+      "status_code": 401,
+      "response_text": ""
+    },
+    {
+      "endpoint": "/users",
+      "method": "GET",
+      "status_code": 401,
+      "response_text": ""
+    },
+    {
+      "endpoint": "/coaches/1",
+      "method": "GET",
+      "status_code": 401,
+      "response_text": ""
+    },
+    {
+      "endpoint": "/coaches/1",
+      "method": "PUT",
+      "status_code": 401,
+      "response_text": ""
+    },
+    {
+      "endpoint": "/coaches/1",
+      "method": "DELETE",
+      "status_code": 401,
+      "response_text": ""
+    },
+    {
+      "endpoint": "/courts/1",
+      "method": "GET",
+      "status_code": 401,
+      "response_text": ""
+    },
+    {
+      "endpoint": "/courts/1",
+      "method": "PUT",
+      "status_code": 401,
+      "response_text": ""
+    },
+    {
+      "endpoint": "/courts/1",
+      "method": "DELETE",
+      "status_code": 401,
+      "response_text": ""
+    }
+  ]
+}

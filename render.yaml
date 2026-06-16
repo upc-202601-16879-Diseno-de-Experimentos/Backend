@@ -1,0 +1,28 @@
+databases:
+  - name: matchpoint-db
+    databaseName: matchpoint
+    user: matchpoint
+    plan: free
+    region: oregon
+
+services:
+  - type: web
+    name: matchpoint-api
+    runtime: docker
+    plan: free
+    region: oregon
+    branch: master
+    dockerfilePath: Dockerfile
+    envVars:
+      - key: JAVA_VERSION
+        value: 21
+      - key: SPRING_PROFILES_ACTIVE
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: matchpoint-db
+          property: connectionString
+      - key: AUTHORIZATION_JWT_SECRET
+        generateValue: true
+      - key: AUTHORIZATION_JWT_EXPIRATION_DAYS
+        value: 7

@@ -1,0 +1,19 @@
+package com.upc.matchpoint;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+
+// Seed logic moved to DataSeeder
+
+@SpringBootApplication
+@EnableJpaAuditing
+public class MatchpointApplication {
+    //Hello world
+    public static void main(String[] args) {
+        SpringApplication.run(MatchpointApplication.class, args);
+    }
+
+    // Data seeding is handled by `DataSeeder` component
+
+}
