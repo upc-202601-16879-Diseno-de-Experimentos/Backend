@@ -29,8 +29,6 @@ public class CoachService {
     @Column(nullable = false)
     private Double price;
 
-    public CoachService() {
-    }
 
     public CoachService(Coach coach, String name, String description, Double price) {
         this.coach = coach;

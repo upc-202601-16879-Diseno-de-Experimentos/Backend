@@ -30,8 +30,6 @@ public class Role {
     @Column(length = 20)
     private Roles name;
 
-    public Role() {
-    }
 
     public Role(Roles name) {
         this.name = name;

@@ -27,8 +27,6 @@ public class Coach {
     @Column(nullable = true)
     private String availability;
 
-    public Coach() {
-    }
 
     public Coach(String name, String expertise, String phone) {
         this.name = name;

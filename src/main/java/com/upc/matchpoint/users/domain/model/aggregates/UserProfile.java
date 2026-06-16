@@ -24,8 +24,6 @@ public class UserProfile {
     @Column(nullable = false)
     private String phone;
 
-    public UserProfile() {
-    }
 
     public UserProfile(String name, String email, String phone) {
         this.name = name;
