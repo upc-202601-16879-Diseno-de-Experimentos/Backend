@@ -3,6 +3,7 @@ package com.upc.matchpoint.courts.application.internal.queryservices;
 import com.upc.matchpoint.courts.domain.model.aggregates.Court;
 import com.upc.matchpoint.courts.domain.model.queries.GetAllCourtsQuery;
 import com.upc.matchpoint.courts.domain.model.queries.GetCourtByIdQuery;
+import com.upc.matchpoint.courts.domain.model.queries.SearchCourtsQuery;
 import com.upc.matchpoint.courts.domain.services.CourtQueryService;
 import com.upc.matchpoint.courts.infrastructure.persistence.jpa.repositories.CourtRepository;
 import org.springframework.stereotype.Service;
@@ -26,5 +27,9 @@ public class CourtQueryServiceImpl implements CourtQueryService {
     public Optional<Court> handle(GetCourtByIdQuery query) {
         return courtRepository.findById(query.courtId());
     }
-}
 
+    @Override
+    public List<Court> handle(SearchCourtsQuery query) {
+        return courtRepository.searchCourts(query.sportType(), query.location(), query.maxPrice());
+    }
+}

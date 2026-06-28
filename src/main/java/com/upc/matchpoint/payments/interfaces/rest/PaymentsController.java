@@ -1,6 +1,8 @@
 package com.upc.matchpoint.payments.interfaces.rest;
 
+import com.upc.matchpoint.payments.domain.model.queries.GetAllPaymentsQuery;
 import com.upc.matchpoint.payments.domain.model.queries.GetPaymentByIdQuery;
+import com.upc.matchpoint.payments.domain.model.queries.GetPaymentsByCoachIdQuery;
 import com.upc.matchpoint.payments.domain.services.PaymentCommandService;
 import com.upc.matchpoint.payments.domain.services.PaymentQueryService;
 import com.upc.matchpoint.payments.interfaces.rest.resources.CreatePaymentResource;
@@ -12,6 +14,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/v1/payments", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -31,6 +35,26 @@ public class PaymentsController {
         var payment = paymentCommandService.handle(command);
         return payment.map(p -> new ResponseEntity<>(PaymentResourceFromEntityAssembler.toResourceFromEntity(p), HttpStatus.CREATED))
                 .orElseGet(() -> ResponseEntity.badRequest().build());
+    }
+
+    @GetMapping
+    public ResponseEntity<List<PaymentResource>> getAllPayments() {
+        var query = new GetAllPaymentsQuery();
+        var payments = paymentQueryService.handle(query);
+        var resources = payments.stream()
+                .map(PaymentResourceFromEntityAssembler::toResourceFromEntity)
+                .toList();
+        return ResponseEntity.ok(resources);
+    }
+
+    @GetMapping("/coach/{coachId}")
+    public ResponseEntity<List<PaymentResource>> getPaymentsByCoachId(@PathVariable Long coachId) {
+        var query = new GetPaymentsByCoachIdQuery(coachId);
+        var payments = paymentQueryService.handle(query);
+        var resources = payments.stream()
+                .map(PaymentResourceFromEntityAssembler::toResourceFromEntity)
+                .toList();
+        return ResponseEntity.ok(resources);
     }
 
     @GetMapping("/{id}")

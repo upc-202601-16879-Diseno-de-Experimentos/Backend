@@ -9,7 +9,13 @@ public class UpdateCourtCommandFromResourceAssembler {
                 courtId,
                 resource.name(),
                 resource.location(),
-                resource.type()
+                resource.type(),
+                resource.sportType(),
+                resource.pricePerHour(),
+                resource.description(),
+                resource.imageUrl(),
+                resource.isAvailable(),
+                resource.openingHours()
         );
     }
 }

@@ -10,8 +10,17 @@ public class CoachResourceFromEntityAssembler {
                 entity.getName(),
                 entity.getExpertise(),
                 entity.getPhone(),
-                entity.getAvailability()
+                entity.getAvailability(),
+                entity.getEmail(),
+                entity.getSportType(),
+                entity.getPricePerHour(),
+                entity.getLocation(),
+                entity.getDescription(),
+                entity.getImageUrl(),
+                entity.getRating(),
+                entity.getTotalReviews(),
+                entity.getIsAvailable(),
+                entity.getExperienceYears()
         );
     }
 }
-

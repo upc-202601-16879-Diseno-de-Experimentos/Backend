@@ -1,9 +1,7 @@
 package com.upc.matchpoint.bookings.application.internal.queryservices;
 
 import com.upc.matchpoint.bookings.domain.model.aggregates.Booking;
-import com.upc.matchpoint.bookings.domain.model.queries.GetAllBookingsQuery;
-import com.upc.matchpoint.bookings.domain.model.queries.GetBookingByIdQuery;
-import com.upc.matchpoint.bookings.domain.model.queries.GetBookingsByCoachIdQuery;
+import com.upc.matchpoint.bookings.domain.model.queries.*;
 import com.upc.matchpoint.bookings.domain.services.BookingQueryService;
 import com.upc.matchpoint.bookings.infrastructure.persistence.jpa.repositories.BookingRepository;
 import org.springframework.stereotype.Service;
@@ -32,5 +30,9 @@ public class BookingQueryServiceImpl implements BookingQueryService {
     public List<Booking> handle(GetBookingsByCoachIdQuery query) {
         return bookingRepository.findAllByCoachServiceCoachId(query.coachId());
     }
-}
 
+    @Override
+    public List<Booking> handle(GetBookingsByUserIdQuery query) {
+        return bookingRepository.findAllByUserId(query.userId());
+    }
+}

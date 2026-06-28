@@ -22,15 +22,22 @@ public class CourtCommandServiceImpl implements CourtCommandService {
         if (courtRepository.existsByName(command.name())) {
             throw new IllegalArgumentException("Court with name " + command.name() + " already exists");
         }
-        var court = new Court(command.name(), command.location(), command.type());
-        var createdCourt = courtRepository.save(court);
-        return Optional.of(createdCourt);
+        var court = new Court(
+                command.name(), command.location(), command.type(),
+                command.sportType(), command.pricePerHour(), command.description(),
+                command.imageUrl(), command.isAvailable(), command.openingHours()
+        );
+        return Optional.of(courtRepository.save(court));
     }
 
     @Override
     public Optional<Court> handle(UpdateCourtCommand command) {
         return courtRepository.findById(command.courtId()).map(courtToUpdate -> {
-            courtToUpdate.updateCourt(command.name(), command.location(), command.type());
+            courtToUpdate.updateCourt(
+                    command.name(), command.location(), command.type(),
+                    command.sportType(), command.pricePerHour(), command.description(),
+                    command.imageUrl(), command.isAvailable(), command.openingHours()
+            );
             return courtRepository.save(courtToUpdate);
         });
     }
@@ -43,4 +50,3 @@ public class CourtCommandServiceImpl implements CourtCommandService {
         courtRepository.deleteById(command.courtId());
     }
 }
-

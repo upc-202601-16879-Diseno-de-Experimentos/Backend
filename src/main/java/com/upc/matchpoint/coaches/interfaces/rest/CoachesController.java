@@ -1,22 +1,13 @@
 package com.upc.matchpoint.coaches.interfaces.rest;
 
 import com.upc.matchpoint.coaches.domain.model.commands.DeleteCoachCommand;
-import com.upc.matchpoint.coaches.domain.model.queries.GetAllCoachesQuery;
-import com.upc.matchpoint.coaches.domain.model.queries.GetCoachByIdQuery;
+import com.upc.matchpoint.coaches.domain.model.commands.DeleteCoachServiceCommand;
+import com.upc.matchpoint.coaches.domain.model.commands.UpdateCoachServiceCommand;
+import com.upc.matchpoint.coaches.domain.model.queries.*;
 import com.upc.matchpoint.coaches.domain.services.CoachCommandService;
 import com.upc.matchpoint.coaches.domain.services.CoachQueryService;
-import com.upc.matchpoint.coaches.interfaces.rest.resources.CoachResource;
-import com.upc.matchpoint.coaches.interfaces.rest.resources.CreateCoachResource;
-import com.upc.matchpoint.coaches.interfaces.rest.resources.UpdateCoachResource;
-import com.upc.matchpoint.coaches.interfaces.rest.transform.CoachResourceFromEntityAssembler;
-import com.upc.matchpoint.coaches.interfaces.rest.transform.CreateCoachCommandFromResourceAssembler;
-import com.upc.matchpoint.coaches.interfaces.rest.transform.UpdateCoachCommandFromResourceAssembler;
-import com.upc.matchpoint.coaches.domain.model.commands.DeleteCoachServiceCommand;
-import com.upc.matchpoint.coaches.domain.model.queries.GetCoachServicesByCoachIdQuery;
-import com.upc.matchpoint.coaches.interfaces.rest.resources.CoachServiceResource;
-import com.upc.matchpoint.coaches.interfaces.rest.resources.CreateCoachServiceResource;
-import com.upc.matchpoint.coaches.interfaces.rest.transform.CoachServiceResourceFromEntityAssembler;
-import com.upc.matchpoint.coaches.interfaces.rest.transform.CreateCoachServiceCommandFromResourceAssembler;
+import com.upc.matchpoint.coaches.interfaces.rest.resources.*;
+import com.upc.matchpoint.coaches.interfaces.rest.transform.*;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -55,6 +46,20 @@ public class CoachesController {
         return ResponseEntity.ok(coachResources);
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<List<CoachResource>> searchCoaches(
+            @RequestParam(required = false) String sportType,
+            @RequestParam(required = false) String location,
+            @RequestParam(required = false) Double maxPrice,
+            @RequestParam(required = false) Double minRating) {
+        var query = new SearchCoachesQuery(sportType, location, maxPrice, minRating);
+        var coaches = coachQueryService.handle(query);
+        var coachResources = coaches.stream()
+                .map(CoachResourceFromEntityAssembler::toResourceFromEntity)
+                .toList();
+        return ResponseEntity.ok(coachResources);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<CoachResource> getCoachById(@PathVariable Long id) {
         var query = new GetCoachByIdQuery(id);
@@ -78,6 +83,8 @@ public class CoachesController {
         return ResponseEntity.ok("Coach deleted successfully.");
     }
 
+    // ---- Coach Services ----
+
     @PostMapping("/{coachId}/services")
     public ResponseEntity<CoachServiceResource> createCoachService(@PathVariable Long coachId, @RequestBody CreateCoachServiceResource resource) {
         var command = CreateCoachServiceCommandFromResourceAssembler.toCommandFromResource(coachId, resource);
@@ -96,10 +103,36 @@ public class CoachesController {
         return ResponseEntity.ok(resources);
     }
 
+    @PutMapping("/services/{serviceId}")
+    public ResponseEntity<CoachServiceResource> updateCoachService(@PathVariable Long serviceId, @RequestBody UpdateCoachServiceResource resource) {
+        var command = new UpdateCoachServiceCommand(serviceId, resource.name(), resource.description(), resource.price());
+        var updated = coachCommandService.handle(command);
+        return updated.map(s -> ResponseEntity.ok(CoachServiceResourceFromEntityAssembler.toResourceFromEntity(s)))
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
     @DeleteMapping("/services/{serviceId}")
     public ResponseEntity<?> deleteCoachService(@PathVariable Long serviceId) {
         var command = new DeleteCoachServiceCommand(serviceId);
         coachCommandService.handle(command);
         return ResponseEntity.ok("Service deleted successfully.");
+    }
+
+    // ---- Coach Stats ----
+
+    @GetMapping("/{id}/stats")
+    public ResponseEntity<?> getCoachStats(@PathVariable Long id) {
+        var coachOpt = coachQueryService.handle(new GetCoachByIdQuery(id));
+        if (coachOpt.isEmpty()) return ResponseEntity.notFound().build();
+        var coach = coachOpt.get();
+        var stats = new java.util.HashMap<String, Object>();
+        stats.put("coachId", coach.getId());
+        stats.put("name", coach.getName());
+        stats.put("rating", coach.getRating());
+        stats.put("totalReviews", coach.getTotalReviews());
+        stats.put("sportType", coach.getSportType());
+        stats.put("pricePerHour", coach.getPricePerHour());
+        stats.put("isAvailable", coach.getIsAvailable());
+        return ResponseEntity.ok(stats);
     }
 }

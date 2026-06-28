@@ -24,49 +24,80 @@ public class Court {
     @Column(nullable = false)
     private String type;
 
+    @Column(nullable = true)
+    private String sportType;
+
+    @Column(nullable = true)
+    private Double pricePerHour;
+
+    @Column(nullable = true, length = 1000)
+    private String description;
+
+    @Column(nullable = true)
+    private String imageUrl;
+
+    @Column(nullable = false)
+    private Boolean isAvailable = true;
+
+    @Column(nullable = true)
+    private String openingHours;
+
     public Court(String name, String location, String type) {
         this.name = name;
         this.location = location;
         this.type = type;
+        this.isAvailable = true;
     }
 
-    public void updateCourt(String name, String location, String type) {
+    public Court(String name, String location, String type, String sportType,
+                 Double pricePerHour, String description, String imageUrl,
+                 Boolean isAvailable, String openingHours) {
         this.name = name;
         this.location = location;
         this.type = type;
+        this.sportType = sportType;
+        this.pricePerHour = pricePerHour;
+        this.description = description;
+        this.imageUrl = imageUrl;
+        this.isAvailable = isAvailable != null ? isAvailable : true;
+        this.openingHours = openingHours;
+    }
+
+    public void updateCourt(String name, String location, String type, String sportType,
+                             Double pricePerHour, String description, String imageUrl,
+                             Boolean isAvailable, String openingHours) {
+        this.name = name;
+        this.location = location;
+        this.type = type;
+        this.sportType = sportType;
+        this.pricePerHour = pricePerHour;
+        this.description = description;
+        this.imageUrl = imageUrl;
+        if (isAvailable != null) this.isAvailable = isAvailable;
+        this.openingHours = openingHours;
     }
 
     // Manual getters
-    public Long getId() {
-        return this.id;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public String getLocation() {
-        return this.location;
-    }
-
-    public String getType() {
-        return this.type;
-    }
+    public Long getId() { return this.id; }
+    public String getName() { return this.name; }
+    public String getLocation() { return this.location; }
+    public String getType() { return this.type; }
+    public String getSportType() { return this.sportType; }
+    public Double getPricePerHour() { return this.pricePerHour; }
+    public String getDescription() { return this.description; }
+    public String getImageUrl() { return this.imageUrl; }
+    public Boolean getIsAvailable() { return this.isAvailable; }
+    public String getOpeningHours() { return this.openingHours; }
 
     // Manual setters
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
+    public void setId(Long id) { this.id = id; }
+    public void setName(String name) { this.name = name; }
+    public void setLocation(String location) { this.location = location; }
+    public void setType(String type) { this.type = type; }
+    public void setSportType(String sportType) { this.sportType = sportType; }
+    public void setPricePerHour(Double pricePerHour) { this.pricePerHour = pricePerHour; }
+    public void setDescription(String description) { this.description = description; }
+    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
+    public void setIsAvailable(Boolean isAvailable) { this.isAvailable = isAvailable; }
+    public void setOpeningHours(String openingHours) { this.openingHours = openingHours; }
 }

@@ -41,7 +41,7 @@ class CourtCommandServiceImplTest {
     void handleCreateCourt_ShouldReturnCourt_WhenNameDoesNotExist() {
         // unitTest
         // Arrange
-        CreateCourtCommand command = new CreateCourtCommand("Cancha 1", "Sede San Isidro", "Fútbol");
+        CreateCourtCommand command = new CreateCourtCommand("Cancha 1", "Sede San Isidro", "Fútbol", null, null, null, null, null, null);
         when(courtRepository.existsByName("Cancha 1")).thenReturn(false);
         when(courtRepository.save(any(Court.class))).thenReturn(court);
 
@@ -59,7 +59,7 @@ class CourtCommandServiceImplTest {
     void handleCreateCourt_ShouldThrowException_WhenNameExists() {
         // unitTest
         // Arrange
-        CreateCourtCommand command = new CreateCourtCommand("Cancha 1", "Sede San Isidro", "Fútbol");
+        CreateCourtCommand command = new CreateCourtCommand("Cancha 1", "Sede San Isidro", "Fútbol", null, null, null, null, null, null);
         when(courtRepository.existsByName("Cancha 1")).thenReturn(true);
 
         // Act & Assert

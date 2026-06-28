@@ -41,7 +41,7 @@ class CoachCommandServiceImplTest {
     void handleCreateCoach_ShouldReturnCoach_WhenNameDoesNotExist() {
         // unitTest
         // Arrange
-        CreateCoachCommand command = new CreateCoachCommand("Coach Garcia", "Tennis", "987654321", null);
+        CreateCoachCommand command = new CreateCoachCommand("Coach Garcia", "Tennis", "987654321", null, null, null, null, null, null, null, null, null);
         when(coachRepository.existsByName("Coach Garcia")).thenReturn(false);
         when(coachRepository.save(any(Coach.class))).thenReturn(coach);
 
@@ -59,7 +59,7 @@ class CoachCommandServiceImplTest {
     void handleCreateCoach_ShouldThrowException_WhenNameExists() {
         // unitTest
         // Arrange
-        CreateCoachCommand command = new CreateCoachCommand("Coach Garcia", "Tennis", "987654321", null);
+        CreateCoachCommand command = new CreateCoachCommand("Coach Garcia", "Tennis", "987654321", null, null, null, null, null, null, null, null, null);
         when(coachRepository.existsByName("Coach Garcia")).thenReturn(true);
 
         // Act & Assert

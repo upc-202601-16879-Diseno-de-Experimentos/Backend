@@ -3,6 +3,7 @@ package com.upc.matchpoint.courts.interfaces.rest;
 import com.upc.matchpoint.courts.domain.model.commands.DeleteCourtCommand;
 import com.upc.matchpoint.courts.domain.model.queries.GetAllCourtsQuery;
 import com.upc.matchpoint.courts.domain.model.queries.GetCourtByIdQuery;
+import com.upc.matchpoint.courts.domain.model.queries.SearchCourtsQuery;
 import com.upc.matchpoint.courts.domain.services.CourtCommandService;
 import com.upc.matchpoint.courts.domain.services.CourtQueryService;
 import com.upc.matchpoint.courts.interfaces.rest.resources.CourtResource;
@@ -49,6 +50,19 @@ public class CourtsController {
         return ResponseEntity.ok(courtResources);
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<List<CourtResource>> searchCourts(
+            @RequestParam(required = false) String sportType,
+            @RequestParam(required = false) String location,
+            @RequestParam(required = false) Double maxPrice) {
+        var query = new SearchCourtsQuery(sportType, location, maxPrice);
+        var courts = courtQueryService.handle(query);
+        var courtResources = courts.stream()
+                .map(CourtResourceFromEntityAssembler::toResourceFromEntity)
+                .toList();
+        return ResponseEntity.ok(courtResources);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<CourtResource> getCourtById(@PathVariable Long id) {
         var query = new GetCourtByIdQuery(id);
@@ -72,4 +86,3 @@ public class CourtsController {
         return ResponseEntity.ok("Court deleted successfully.");
     }
 }
-

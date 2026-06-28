@@ -1,0 +1,54 @@
+version: "3.9"
+
+services:
+
+  postgres:
+    image: postgres:17
+    container_name: matchpoint-db
+    restart: unless-stopped
+
+    environment:
+      POSTGRES_DB: matchpoint
+      POSTGRES_USER: matchpoint
+      POSTGRES_PASSWORD: 123456789
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U matchpoint -d matchpoint" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    container_name: matchpoint-api
+
+    restart: unless-stopped
+
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+    ports:
+      - "8080:8080"
+
+    environment:
+      SPRING_PROFILES_ACTIVE: local
+
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/matchpoint
+      SPRING_DATASOURCE_USERNAME: matchpoint
+      SPRING_DATASOURCE_PASSWORD: 123456789
+
+      AUTHORIZATION_JWT_SECRET: SuperSecretKeyForMatchPointAPI2026ThatIsLongEnoughToWork
+      AUTHORIZATION_JWT_EXPIRATION_DAYS: 7
+
+volumes:
+  postgres_data:

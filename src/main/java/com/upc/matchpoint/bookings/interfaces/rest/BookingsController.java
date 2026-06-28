@@ -1,9 +1,7 @@
 package com.upc.matchpoint.bookings.interfaces.rest;
 
 import com.upc.matchpoint.bookings.domain.model.commands.DeleteBookingCommand;
-import com.upc.matchpoint.bookings.domain.model.queries.GetAllBookingsQuery;
-import com.upc.matchpoint.bookings.domain.model.queries.GetBookingByIdQuery;
-import com.upc.matchpoint.bookings.domain.model.queries.GetBookingsByCoachIdQuery;
+import com.upc.matchpoint.bookings.domain.model.queries.*;
 import com.upc.matchpoint.bookings.domain.services.BookingCommandService;
 import com.upc.matchpoint.bookings.domain.services.BookingQueryService;
 import com.upc.matchpoint.bookings.interfaces.rest.resources.BookingResource;
@@ -19,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/api/v1/bookings", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -60,6 +59,16 @@ public class BookingsController {
         return ResponseEntity.ok(bookingResources);
     }
 
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<BookingResource>> getBookingsByUserId(@PathVariable Long userId) {
+        var query = new GetBookingsByUserIdQuery(userId);
+        var bookings = bookingQueryService.handle(query);
+        var bookingResources = bookings.stream()
+                .map(BookingResourceFromEntityAssembler::toResourceFromEntity)
+                .toList();
+        return ResponseEntity.ok(bookingResources);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<BookingResource> getBookingById(@PathVariable Long id) {
         var query = new GetBookingByIdQuery(id);
@@ -70,6 +79,25 @@ public class BookingsController {
 
     @PutMapping("/{id}")
     public ResponseEntity<BookingResource> updateBooking(@PathVariable Long id, @RequestBody UpdateBookingResource resource) {
+        var command = UpdateBookingCommandFromResourceAssembler.toCommandFromResource(id, resource);
+        var updatedBooking = bookingCommandService.handle(command);
+        return updatedBooking.map(b -> ResponseEntity.ok(BookingResourceFromEntityAssembler.toResourceFromEntity(b)))
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @PutMapping("/{id}/status")
+    public ResponseEntity<BookingResource> updateBookingStatus(@PathVariable Long id, @RequestBody Map<String, String> body) {
+        String status = body.get("status");
+        if (status == null || status.isBlank()) {
+            return ResponseEntity.badRequest().build();
+        }
+        var query = new GetBookingByIdQuery(id);
+        var bookingOpt = bookingQueryService.handle(query);
+        if (bookingOpt.isEmpty()) return ResponseEntity.notFound().build();
+        var booking = bookingOpt.get();
+        booking.setStatus(status.toUpperCase());
+        // Use the existing update command with current times and the new status
+        var resource = new UpdateBookingResource(booking.getStartTime(), booking.getEndTime(), status.toUpperCase());
         var command = UpdateBookingCommandFromResourceAssembler.toCommandFromResource(id, resource);
         var updatedBooking = bookingCommandService.handle(command);
         return updatedBooking.map(b -> ResponseEntity.ok(BookingResourceFromEntityAssembler.toResourceFromEntity(b)))

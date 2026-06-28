@@ -10,8 +10,15 @@ public class UpdateCoachCommandFromResourceAssembler {
                 resource.name(),
                 resource.expertise(),
                 resource.phone(),
-                resource.availability()
+                resource.availability(),
+                resource.email(),
+                resource.sportType(),
+                resource.pricePerHour(),
+                resource.location(),
+                resource.description(),
+                resource.imageUrl(),
+                resource.isAvailable(),
+                resource.experienceYears()
         );
     }
 }
-

@@ -48,9 +48,13 @@ class CoachBookingIntegrationTest {
     @Autowired
     private CoachRepository coachRepository;
 
+    @Autowired
+    private com.upc.matchpoint.coaches.infrastructure.persistence.jpa.repositories.CoachServiceRepository coachServiceRepository;
+
     private UserProfile user;
     private Court court;
     private Coach coach;
+    private com.upc.matchpoint.coaches.domain.model.entities.CoachService coachService;
 
     @BeforeEach
     void setUp() {
@@ -58,6 +62,7 @@ class CoachBookingIntegrationTest {
         user = userProfileRepository.save(new UserProfile("Player 1", "player@test.com", "987654321"));
         court = courtRepository.save(new Court("Central Court", "Club X", "Paddle"));
         coach = coachRepository.save(new Coach("Coach Mike", "Paddle Specialist", "999000111"));
+        coachService = coachServiceRepository.save(new com.upc.matchpoint.coaches.domain.model.entities.CoachService(coach, "Paddle Lesson", "1 hour lesson", 50.0));
     }
 
     @Test
@@ -69,7 +74,7 @@ class CoachBookingIntegrationTest {
         LocalDateTime startTime = LocalDateTime.now().plusDays(2);
         LocalDateTime endTime = startTime.plusHours(1);
         CreateBookingResource resource = new CreateBookingResource(startTime, endTime, user.getId(), court.getId(),
-                coach.getId());
+                coachService.getId());
 
         mockMvc.perform(post("/api/v1/bookings")
                 .contentType(MediaType.APPLICATION_JSON)

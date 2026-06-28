@@ -9,8 +9,13 @@ public class CourtResourceFromEntityAssembler {
                 entity.getId(),
                 entity.getName(),
                 entity.getLocation(),
-                entity.getType()
+                entity.getType(),
+                entity.getSportType(),
+                entity.getPricePerHour(),
+                entity.getDescription(),
+                entity.getImageUrl(),
+                entity.getIsAvailable(),
+                entity.getOpeningHours()
         );
     }
 }
-

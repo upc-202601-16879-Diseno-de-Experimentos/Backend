@@ -43,6 +43,9 @@ public class BookingCommandServiceImpl implements BookingCommandService {
                     .orElseThrow(() -> new IllegalArgumentException("CoachService with id " + command.coachServiceId() + " not found"));
             booking.setCoachService(coachService);
             booking.setAmount(coachService.getPrice());
+        } else if (court != null) {
+            booking.setAmount(court.getPricePerHour());
+            booking.setStatus("CONFIRMED"); // Canchas se confirman automáticamente
         }
 
         var createdBooking = bookingRepository.save(booking);

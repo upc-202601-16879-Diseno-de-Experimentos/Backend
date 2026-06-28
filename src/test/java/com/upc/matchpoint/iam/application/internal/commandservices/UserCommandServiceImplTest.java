@@ -73,17 +73,18 @@ class UserCommandServiceImplTest {
     }
 
     @Test
-    @DisplayName("Debería lanzar una excepción cuando el nombre de usuario ya existe")
-    void handleSignUp_ShouldThrowException_WhenUsernameExists() {
+    @DisplayName("Debería retornar Optional.empty() cuando el nombre de usuario ya existe")
+    void handleSignUp_ShouldReturnEmpty_WhenUsernameExists() {
         // unitTest
         // Arrange
         SignUpCommand command = new SignUpCommand("testuser", "password", Collections.emptyList());
         when(userRepository.existsByUsername("testuser")).thenReturn(true);
 
-        // Act & Assert
-        assertThatThrownBy(() -> userCommandService.handle(command))
-                .isInstanceOf(RuntimeException.class)
-                .hasMessage("Username already exists");
+        // Act
+        var result = userCommandService.handle(command);
+
+        // Assert
+        assertThat(result).isEmpty();
         verify(userRepository, never()).save(any(User.class));
     }
 
@@ -106,17 +107,18 @@ class UserCommandServiceImplTest {
     }
 
     @Test
-    @DisplayName("Debería lanzar una excepción cuando la contraseña es inválida")
-    void handleSignIn_ShouldThrowException_WhenPasswordIsInvalid() {
+    @DisplayName("Debería retornar Optional.empty() cuando la contraseña es inválida")
+    void handleSignIn_ShouldReturnEmpty_WhenPasswordIsInvalid() {
         // unitTest
         // Arrange
         SignInCommand command = new SignInCommand("testuser", "wrongpassword");
         when(userRepository.findByUsername("testuser")).thenReturn(Optional.of(user));
         when(hashingService.matches("wrongpassword", "hashedpassword")).thenReturn(false);
 
-        // Act & Assert
-        assertThatThrownBy(() -> userCommandService.handle(command))
-                .isInstanceOf(RuntimeException.class)
-                .hasMessage("Invalid password");
+        // Act
+        var result = userCommandService.handle(command);
+
+        // Assert
+        assertThat(result).isEmpty();
     }
 }
