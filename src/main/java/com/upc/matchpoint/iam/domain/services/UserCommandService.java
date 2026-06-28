@@ -28,5 +28,5 @@ public interface UserCommandService {
      */
     Optional<User> handle(SignUpCommand command);
 
-
+    Optional<ImmutablePair<User, String>> handle(com.upc.matchpoint.iam.domain.model.commands.SignInWithGoogleCommand command);
 }

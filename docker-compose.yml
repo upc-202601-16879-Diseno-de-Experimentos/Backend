@@ -49,6 +49,7 @@ services:
 
       AUTHORIZATION_JWT_SECRET: SuperSecretKeyForMatchPointAPI2026ThatIsLongEnoughToWork
       AUTHORIZATION_JWT_EXPIRATION_DAYS: 7
+      GOOGLE_CLIENT_ID: 203684276873-gfrrh4brb30rguelmebrvn279isg4k77.apps.googleusercontent.com
 
 volumes:
   postgres_data:

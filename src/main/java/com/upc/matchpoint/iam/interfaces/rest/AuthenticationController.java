@@ -85,6 +85,33 @@ public class AuthenticationController {
             e.printStackTrace();
             return ResponseEntity.badRequest().header("X-Error-Reason", e.getMessage()).build();
         }
+    }
 
+    /**
+     * Handles Google sign-in / registration request.
+     * @param resource the Google sign-in resource containing the ID token.
+     * @return the authenticated user resource.
+     */
+    @PostMapping("/google")
+    @Operation(summary = "Google Sign-in", description = "Sign-in or register with a Google ID Token.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "User authenticated successfully."),
+            @ApiResponse(responseCode = "400", description = "Bad request / Invalid token.")})
+    public ResponseEntity<AuthenticatedUserResource> googleSignIn(@RequestBody com.upc.matchpoint.iam.interfaces.rest.resources.GoogleSignInResource resource) {
+        try {
+            var command = new com.upc.matchpoint.iam.domain.model.commands.SignInWithGoogleCommand(resource.idToken(), resource.role());
+            var authenticatedUser = userCommandService.handle(command);
+            if (authenticatedUser.isEmpty()) {
+                return ResponseEntity.badRequest().build();
+            }
+            var authenticatedUserResource = AuthenticatedUserResourceFromEntityAssembler.toResourceFromEntity(
+                    authenticatedUser.get().getLeft(), 
+                    authenticatedUser.get().getRight()
+            );
+            return ResponseEntity.ok(authenticatedUserResource);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().header("X-Error-Reason", e.getMessage()).build();
+        }
     }
 }
