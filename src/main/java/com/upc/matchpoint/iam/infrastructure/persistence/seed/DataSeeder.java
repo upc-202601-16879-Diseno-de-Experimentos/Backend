@@ -140,19 +140,54 @@ public class DataSeeder implements CommandLineRunner {
         // 5. Courts
         if (courtRepository.count() == 0) {
             courtRepository.save(new Court(
-                    "Cancha Miraflores 1", "Miraflores", "Indoor", "TENNIS",
-                    40.0, "Cancha de tenis techada de superficie dura con iluminación LED.",
+                    "Club Las Terrazas Miraflores - Cancha 1", "Miraflores", "Outdoor", "TENNIS",
+                    50.0, "Cancha de tenis de arcilla roja oficial con iluminación nocturna y gradería.",
                     "https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0", true, "06:00-22:00"
             ));
             courtRepository.save(new Court(
-                    "Cancha San Isidro A", "San Isidro", "Outdoor", "FOOTBALL",
-                    30.0, "Cancha de fútbol 7 con césped sintético de última generación.",
-                    "https://images.unsplash.com/photo-1518063319789-7217e6706b04", true, "07:00-21:00"
+                    "Complejo Deportivo San Isidro - Campo A", "San Isidro", "Outdoor", "FOOTBALL",
+                    40.0, "Campo de fútbol 7 con césped sintético de última generación e iluminación LED.",
+                    "https://images.unsplash.com/photo-1518063319789-7217e6706b04", true, "07:00-23:00"
             ));
             courtRepository.save(new Court(
-                    "Cancha Barranco B", "Barranco", "Outdoor", "VOLLEYBALL",
-                    25.0, "Cancha de arena para voley playa de uso recreativo.",
-                    "https://images.unsplash.com/photo-1530541930197-ff16ac917b0e", false, "08:00-20:00"
+                    "Padel Club La Molina - Cancha Premium", "La Molina", "Indoor", "TENNIS",
+                    60.0, "Cancha de pádel/tenis techada de cristal templado y alfombra azul premium.",
+                    "https://images.unsplash.com/photo-1530541930197-ff16ac917b0e", true, "06:00-23:00"
+            ));
+            courtRepository.save(new Court(
+                    "Circolo Sportivo Italiano - Cancha de Voleibol 1", "Pueblo Libre", "Indoor", "VOLLEYBALL",
+                    35.0, "Cancha de voleibol techada con piso flotante de madera oficial.",
+                    "https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0", true, "08:00-22:00"
+            ));
+            courtRepository.save(new Court(
+                    "Polideportivo Surco - Cancha de Tenis B", "Surco", "Outdoor", "TENNIS",
+                    45.0, "Cancha dura rápida de tenis, ideal para entrenamientos individuales o dobles.",
+                    "https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0", true, "06:00-21:00"
+            ));
+            courtRepository.save(new Court(
+                    "Campo de la Videna - Cancha Auxiliar", "San Luis", "Indoor", "VOLLEYBALL",
+                    30.0, "Cancha oficial de voley de alta competencia con superficie acojinada en el complejo Videna.",
+                    "https://images.unsplash.com/photo-1530541930197-ff16ac917b0e", true, "08:00-20:00"
+            ));
+            courtRepository.save(new Court(
+                    "Club Regatas Lima - Cancha de Tenis Playa", "Chorrillos", "Outdoor", "VOLLEYBALL",
+                    25.0, "Cancha de voley playa y tenis playa de arena fina frente al mar.",
+                    "https://images.unsplash.com/photo-1530541930197-ff16ac917b0e", true, "07:00-19:00"
+            ));
+            courtRepository.save(new Court(
+                    "Complejo Deportivo Campo de Marte - Cancha 3", "Jesús María", "Outdoor", "TENNIS",
+                    35.0, "Cancha de tenis de arcilla pública de gran tradición y afluencia.",
+                    "https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0", true, "06:00-22:00"
+            ));
+            courtRepository.save(new Court(
+                    "Depor Plaza Magdalena - Campo 2", "Magdalena", "Outdoor", "FOOTBALL",
+                    45.0, "Cancha de grass sintético para fútbol 5 al lado de la Costa Verde.",
+                    "https://images.unsplash.com/photo-1518063319789-7217e6706b04", true, "07:00-23:00"
+            ));
+            courtRepository.save(new Court(
+                    "Club Lawn Tennis de la Exposición - Cancha Central", "Jesús María", "Outdoor", "TENNIS",
+                    70.0, "Cancha histórica de arcilla donde se juegan torneos nacionales.",
+                    "https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0", true, "06:00-22:00"
             ));
         }
 
@@ -160,8 +195,8 @@ public class DataSeeder implements CommandLineRunner {
         if (bookingRepository.count() == 0) {
             var carlos = userProfileRepository.findAll().stream().filter(u -> u.getName().equals("Carlos Mendoza")).findFirst().orElse(null);
             var ana = userProfileRepository.findAll().stream().filter(u -> u.getName().equals("Ana García")).findFirst().orElse(null);
-            var courtTennis = courtRepository.findAll().stream().filter(c -> c.getName().equals("Cancha Miraflores 1")).findFirst().orElse(null);
-            var courtFootball = courtRepository.findAll().stream().filter(c -> c.getName().equals("Cancha San Isidro A")).findFirst().orElse(null);
+            var courtTennis = courtRepository.findAll().stream().filter(c -> c.getName().equals("Club Las Terrazas Miraflores - Cancha 1")).findFirst().orElse(null);
+            var courtFootball = courtRepository.findAll().stream().filter(c -> c.getName().equals("Complejo Deportivo San Isidro - Campo A")).findFirst().orElse(null);
             var serviceFutbol = coachServiceRepository.findAll().stream().filter(s -> s.getName().equals("Técnica básica")).findFirst().orElse(null);
 
             if (carlos != null && courtTennis != null) {
