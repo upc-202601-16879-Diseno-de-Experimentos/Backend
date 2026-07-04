@@ -15,7 +15,9 @@ public class CourtResourceFromEntityAssembler {
                 entity.getDescription(),
                 entity.getImageUrl(),
                 entity.getIsAvailable(),
-                entity.getOpeningHours()
+                entity.getOpeningHours(),
+                entity.getLatitude(),
+                entity.getLongitude()
         );
     }
 }

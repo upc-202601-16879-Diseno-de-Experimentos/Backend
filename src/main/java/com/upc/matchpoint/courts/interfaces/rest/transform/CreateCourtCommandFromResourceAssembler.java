@@ -14,7 +14,9 @@ public class CreateCourtCommandFromResourceAssembler {
                 resource.description(),
                 resource.imageUrl(),
                 resource.isAvailable(),
-                resource.openingHours()
+                resource.openingHours(),
+                resource.latitude(),
+                resource.longitude()
         );
     }
 }

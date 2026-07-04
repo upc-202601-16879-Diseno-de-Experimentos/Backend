@@ -122,11 +122,8 @@ public class DatabaseConfig {
         if (username != null && !username.isBlank()) config.setUsername(username);
         if (password != null && !password.isBlank()) config.setPassword(password);
         // Select driver class dynamically based on JDBC URL when possible
-        String driverProperty = env.getProperty("spring.datasource.driver-class-name");
         String candidateDriver = null;
-        if (driverProperty != null && !driverProperty.isBlank()) {
-            candidateDriver = driverProperty;
-        } else if (jdbcUrl != null) {
+        if (jdbcUrl != null) {
             var lower = jdbcUrl.toLowerCase();
             if (lower.startsWith("jdbc:mysql:")) {
                 candidateDriver = "com.mysql.cj.jdbc.Driver";
@@ -135,6 +132,11 @@ public class DatabaseConfig {
             } else if (lower.startsWith("jdbc:sqlserver:")) {
                 candidateDriver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
             }
+        }
+        
+        String driverProperty = env.getProperty("spring.datasource.driver-class-name");
+        if (candidateDriver == null && driverProperty != null && !driverProperty.isBlank()) {
+            candidateDriver = driverProperty;
         }
 
         if (candidateDriver != null) {

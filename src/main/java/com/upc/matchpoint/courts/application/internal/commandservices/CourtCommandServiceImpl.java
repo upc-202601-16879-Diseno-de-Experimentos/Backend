@@ -25,7 +25,8 @@ public class CourtCommandServiceImpl implements CourtCommandService {
         var court = new Court(
                 command.name(), command.location(), command.type(),
                 command.sportType(), command.pricePerHour(), command.description(),
-                command.imageUrl(), command.isAvailable(), command.openingHours()
+                command.imageUrl(), command.isAvailable(), command.openingHours(),
+                command.latitude(), command.longitude()
         );
         return Optional.of(courtRepository.save(court));
     }
@@ -36,7 +37,8 @@ public class CourtCommandServiceImpl implements CourtCommandService {
             courtToUpdate.updateCourt(
                     command.name(), command.location(), command.type(),
                     command.sportType(), command.pricePerHour(), command.description(),
-                    command.imageUrl(), command.isAvailable(), command.openingHours()
+                    command.imageUrl(), command.isAvailable(), command.openingHours(),
+                    command.latitude(), command.longitude()
             );
             return courtRepository.save(courtToUpdate);
         });

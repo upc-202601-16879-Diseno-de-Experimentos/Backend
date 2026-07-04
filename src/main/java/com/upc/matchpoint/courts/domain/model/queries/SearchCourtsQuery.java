@@ -1,4 +1,4 @@
 package com.upc.matchpoint.courts.domain.model.queries;
 
-public record SearchCourtsQuery(String sportType, String location, Double maxPrice) {
+public record SearchCourtsQuery(String sportType, String location, Double maxPrice, Double userLat, Double userLon) {
 }

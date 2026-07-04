@@ -54,8 +54,10 @@ public class CourtsController {
     public ResponseEntity<List<CourtResource>> searchCourts(
             @RequestParam(required = false) String sportType,
             @RequestParam(required = false) String location,
-            @RequestParam(required = false) Double maxPrice) {
-        var query = new SearchCourtsQuery(sportType, location, maxPrice);
+            @RequestParam(required = false) Double maxPrice,
+            @RequestParam(required = false) Double userLat,
+            @RequestParam(required = false) Double userLon) {
+        var query = new SearchCourtsQuery(sportType, location, maxPrice, userLat, userLon);
         var courts = courtQueryService.handle(query);
         var courtResources = courts.stream()
                 .map(CourtResourceFromEntityAssembler::toResourceFromEntity)

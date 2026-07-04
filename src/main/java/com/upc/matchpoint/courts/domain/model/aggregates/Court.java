@@ -42,6 +42,12 @@ public class Court {
     @Column(nullable = true)
     private String openingHours;
 
+    @Column(nullable = true)
+    private Double latitude;
+
+    @Column(nullable = true)
+    private Double longitude;
+
     public Court(String name, String location, String type) {
         this.name = name;
         this.location = location;
@@ -51,7 +57,7 @@ public class Court {
 
     public Court(String name, String location, String type, String sportType,
                  Double pricePerHour, String description, String imageUrl,
-                 Boolean isAvailable, String openingHours) {
+                 Boolean isAvailable, String openingHours, Double latitude, Double longitude) {
         this.name = name;
         this.location = location;
         this.type = type;
@@ -61,11 +67,19 @@ public class Court {
         this.imageUrl = imageUrl;
         this.isAvailable = isAvailable != null ? isAvailable : true;
         this.openingHours = openingHours;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
+    public Court(String name, String location, String type, String sportType,
+                 Double pricePerHour, String description, String imageUrl,
+                 Boolean isAvailable, String openingHours) {
+        this(name, location, type, sportType, pricePerHour, description, imageUrl, isAvailable, openingHours, null, null);
     }
 
     public void updateCourt(String name, String location, String type, String sportType,
                              Double pricePerHour, String description, String imageUrl,
-                             Boolean isAvailable, String openingHours) {
+                             Boolean isAvailable, String openingHours, Double latitude, Double longitude) {
         this.name = name;
         this.location = location;
         this.type = type;
@@ -75,6 +89,8 @@ public class Court {
         this.imageUrl = imageUrl;
         if (isAvailable != null) this.isAvailable = isAvailable;
         this.openingHours = openingHours;
+        if (latitude != null) this.latitude = latitude;
+        if (longitude != null) this.longitude = longitude;
     }
 
     // Manual getters
@@ -89,6 +105,9 @@ public class Court {
     public Boolean getIsAvailable() { return this.isAvailable; }
     public String getOpeningHours() { return this.openingHours; }
 
+    public Double getLatitude() { return this.latitude; }
+    public Double getLongitude() { return this.longitude; }
+
     // Manual setters
     public void setId(Long id) { this.id = id; }
     public void setName(String name) { this.name = name; }
@@ -100,4 +119,6 @@ public class Court {
     public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
     public void setIsAvailable(Boolean isAvailable) { this.isAvailable = isAvailable; }
     public void setOpeningHours(String openingHours) { this.openingHours = openingHours; }
+    public void setLatitude(Double latitude) { this.latitude = latitude; }
+    public void setLongitude(Double longitude) { this.longitude = longitude; }
 }

@@ -142,52 +142,62 @@ public class DataSeeder implements CommandLineRunner {
             courtRepository.save(new Court(
                     "Club Las Terrazas Miraflores - Cancha 1", "Miraflores", "Outdoor", "TENNIS",
                     50.0, "Cancha de tenis de arcilla roja oficial con iluminación nocturna y gradería.",
-                    "https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0", true, "06:00-22:00"
+                    "https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0", true, "06:00-22:00",
+                    -12.1211, -77.0289
             ));
             courtRepository.save(new Court(
                     "Complejo Deportivo San Isidro - Campo A", "San Isidro", "Outdoor", "FOOTBALL",
                     40.0, "Campo de fútbol 7 con césped sintético de última generación e iluminación LED.",
-                    "https://images.unsplash.com/photo-1518063319789-7217e6706b04", true, "07:00-23:00"
+                    "https://images.unsplash.com/photo-1518063319789-7217e6706b04", true, "07:00-23:00",
+                    -12.0973, -77.0345
             ));
             courtRepository.save(new Court(
                     "Padel Club La Molina - Cancha Premium", "La Molina", "Indoor", "TENNIS",
                     60.0, "Cancha de pádel/tenis techada de cristal templado y alfombra azul premium.",
-                    "https://images.unsplash.com/photo-1530541930197-ff16ac917b0e", true, "06:00-23:00"
+                    "https://images.unsplash.com/photo-1530541930197-ff16ac917b0e", true, "06:00-23:00",
+                    -12.0768, -76.9248
             ));
             courtRepository.save(new Court(
                     "Circolo Sportivo Italiano - Cancha de Voleibol 1", "Pueblo Libre", "Indoor", "VOLLEYBALL",
                     35.0, "Cancha de voleibol techada con piso flotante de madera oficial.",
-                    "https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0", true, "08:00-22:00"
+                    "https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0", true, "08:00-22:00",
+                    -12.0722, -77.0678
             ));
             courtRepository.save(new Court(
                     "Polideportivo Surco - Cancha de Tenis B", "Surco", "Outdoor", "TENNIS",
                     45.0, "Cancha dura rápida de tenis, ideal para entrenamientos individuales o dobles.",
-                    "https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0", true, "06:00-21:00"
+                    "https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0", true, "06:00-21:00",
+                    -12.1466, -76.9943
             ));
             courtRepository.save(new Court(
                     "Campo de la Videna - Cancha Auxiliar", "San Luis", "Indoor", "VOLLEYBALL",
                     30.0, "Cancha oficial de voley de alta competencia con superficie acojinada en el complejo Videna.",
-                    "https://images.unsplash.com/photo-1530541930197-ff16ac917b0e", true, "08:00-20:00"
+                    "https://images.unsplash.com/photo-1530541930197-ff16ac917b0e", true, "08:00-20:00",
+                    -12.0759, -77.0016
             ));
             courtRepository.save(new Court(
                     "Club Regatas Lima - Cancha de Tenis Playa", "Chorrillos", "Outdoor", "VOLLEYBALL",
                     25.0, "Cancha de voley playa y tenis playa de arena fina frente al mar.",
-                    "https://images.unsplash.com/photo-1530541930197-ff16ac917b0e", true, "07:00-19:00"
+                    "https://images.unsplash.com/photo-1530541930197-ff16ac917b0e", true, "07:00-19:00",
+                    -12.1763, -77.0189
             ));
             courtRepository.save(new Court(
                     "Complejo Deportivo Campo de Marte - Cancha 3", "Jesús María", "Outdoor", "TENNIS",
                     35.0, "Cancha de tenis de arcilla pública de gran tradición y afluencia.",
-                    "https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0", true, "06:00-22:00"
+                    "https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0", true, "06:00-22:00",
+                    -12.0772, -77.0435
             ));
             courtRepository.save(new Court(
                     "Depor Plaza Magdalena - Campo 2", "Magdalena", "Outdoor", "FOOTBALL",
                     45.0, "Cancha de grass sintético para fútbol 5 al lado de la Costa Verde.",
-                    "https://images.unsplash.com/photo-1518063319789-7217e6706b04", true, "07:00-23:00"
+                    "https://images.unsplash.com/photo-1518063319789-7217e6706b04", true, "07:00-23:00",
+                    -12.0917, -77.0706
             ));
             courtRepository.save(new Court(
                     "Club Lawn Tennis de la Exposición - Cancha Central", "Jesús María", "Outdoor", "TENNIS",
                     70.0, "Cancha histórica de arcilla donde se juegan torneos nacionales.",
-                    "https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0", true, "06:00-22:00"
+                    "https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0", true, "06:00-22:00",
+                    -12.0772, -77.0435
             ));
         }
 

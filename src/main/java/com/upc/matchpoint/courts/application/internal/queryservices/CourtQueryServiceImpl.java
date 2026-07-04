@@ -30,6 +30,6 @@ public class CourtQueryServiceImpl implements CourtQueryService {
 
     @Override
     public List<Court> handle(SearchCourtsQuery query) {
-        return courtRepository.searchCourts(query.sportType(), query.location(), query.maxPrice());
+        return courtRepository.searchCourts(query.sportType(), query.location(), query.maxPrice(), query.userLat(), query.userLon());
     }
 }
