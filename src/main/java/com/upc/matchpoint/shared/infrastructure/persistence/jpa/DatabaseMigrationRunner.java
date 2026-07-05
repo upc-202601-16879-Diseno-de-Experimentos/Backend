@@ -30,8 +30,10 @@ public class DatabaseMigrationRunner implements CommandLineRunner {
             logger.info("Successfully updated courts table.");
             
             // Clean up duplicate coaches caused by the previous Google Auth bug
-            jdbcTemplate.execute("DELETE FROM coaches WHERE email IS NOT NULL AND id NOT IN (SELECT MAX(id) FROM coaches WHERE email IS NOT NULL GROUP BY email);");
-            logger.info("Successfully cleaned up duplicate coaches.");
+            // We use MIN(id) to keep the ORIGINAL profile (which has the reviews and bookings) 
+            // and delete the newer buggy duplicates.
+            jdbcTemplate.execute("DELETE FROM coaches WHERE email IS NOT NULL AND id NOT IN (SELECT MIN(id) FROM coaches WHERE email IS NOT NULL GROUP BY email);");
+            logger.info("Successfully cleaned up duplicate coaches, keeping the original profiles.");
             
         } catch (Exception e) {
             // If it's a local H2 or MySQL database during tests, this PostgreSQL syntax might fail,
