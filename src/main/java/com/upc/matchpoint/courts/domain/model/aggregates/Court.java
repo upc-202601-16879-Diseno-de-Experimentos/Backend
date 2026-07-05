@@ -33,7 +33,7 @@ public class Court {
     @Column(nullable = true, length = 1000)
     private String description;
 
-    @Column(nullable = true)
+    @Column(nullable = true, columnDefinition = "TEXT")
     private String imageUrl;
 
     @Column(nullable = false)
