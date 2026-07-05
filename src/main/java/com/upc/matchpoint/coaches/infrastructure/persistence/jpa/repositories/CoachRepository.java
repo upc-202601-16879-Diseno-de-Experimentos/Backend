@@ -10,6 +10,7 @@ import java.util.List;
 @Repository
 public interface CoachRepository extends JpaRepository<Coach, Long> {
     boolean existsByName(String name);
+    boolean existsByEmail(String email);
 
     @Query("SELECT c FROM Coach c WHERE " +
            "(:sportType IS NULL OR LOWER(c.sportType) = LOWER(:sportType)) AND " +

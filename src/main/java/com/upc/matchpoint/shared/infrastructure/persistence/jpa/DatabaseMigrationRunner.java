@@ -29,6 +29,10 @@ public class DatabaseMigrationRunner implements CommandLineRunner {
             jdbcTemplate.execute("ALTER TABLE IF EXISTS courts ALTER COLUMN image_url TYPE TEXT;");
             logger.info("Successfully updated courts table.");
             
+            // Clean up duplicate coaches caused by the previous Google Auth bug
+            jdbcTemplate.execute("DELETE FROM coaches WHERE email IS NOT NULL AND id NOT IN (SELECT MAX(id) FROM coaches WHERE email IS NOT NULL GROUP BY email);");
+            logger.info("Successfully cleaned up duplicate coaches.");
+            
         } catch (Exception e) {
             // If it's a local H2 or MySQL database during tests, this PostgreSQL syntax might fail,
             // so we catch the exception and log a warning to avoid crashing the application.

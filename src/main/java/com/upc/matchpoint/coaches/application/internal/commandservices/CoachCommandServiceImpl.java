@@ -24,6 +24,9 @@ public class CoachCommandServiceImpl implements CoachCommandService {
         if (coachRepository.existsByName(command.name())) {
             throw new IllegalArgumentException("Coach with name " + command.name() + " already exists");
         }
+        if (command.email() != null && coachRepository.existsByEmail(command.email())) {
+            throw new IllegalArgumentException("Coach with email " + command.email() + " already exists");
+        }
         var coach = new Coach(
                 command.name(), command.expertise(), command.phone(),
                 command.email(), command.sportType(), command.pricePerHour(),
