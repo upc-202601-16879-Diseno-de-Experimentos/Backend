@@ -59,7 +59,7 @@ class CoachBookingIntegrationTest {
     @BeforeEach
     void setUp() {
         // Arrange
-        user = userProfileRepository.save(new UserProfile("Player 1", "player@test.com", "987654321"));
+        user = userProfileRepository.save(new UserProfile(null, "Player 1", "player@test.com", "987654321"));
         court = courtRepository.save(new Court("Central Court", "Club X", "Paddle"));
         coach = coachRepository.save(new Coach("Coach Mike", "Paddle Specialist", "999000111"));
         coachService = coachServiceRepository.save(new com.upc.matchpoint.coaches.domain.model.entities.CoachService(coach, "Paddle Lesson", "1 hour lesson", 50.0));

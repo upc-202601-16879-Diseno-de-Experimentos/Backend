@@ -73,7 +73,7 @@ public class BookingStepDefinitions {
 
     @Given("que existe un usuario registrado con email {string}")
     public void queExisteUnUsuarioRegistradoConEmail(String email) {
-        user = userProfileRepository.save(new UserProfile("BDD User", email, "123456789"));
+        user = userProfileRepository.save(new UserProfile(null, "BDD User", email, "123456789"));
     }
 
     @Given("existe una cancha deportiva llamada {string}")
@@ -116,7 +116,7 @@ public class BookingStepDefinitions {
 
     @Given("el entrenador tiene {int} reservas asignadas en el sistema")
     public void elEntrenadorTieneReservasAsignadasEnElSistema(int count) {
-        UserProfile player = userProfileRepository.save(new UserProfile("Player BDD", "player@bdd.com", "000"));
+        UserProfile player = userProfileRepository.save(new UserProfile(null, "Player BDD", "player@bdd.com", "000"));
         Court c = courtRepository.save(new Court("Cancha Pro", "Sede Coach", "Padel"));
 
         for (int i = 0; i < count; i++) {

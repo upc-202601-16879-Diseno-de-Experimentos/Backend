@@ -48,7 +48,7 @@ class BookingCommandServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        user = new UserProfile("John Doe", "john@example.com", "123456789");
+        user = new UserProfile(null, "John Doe", "john@example.com", "123456789");
         user.setId(1L);
         court = new Court("Main Court", "Central Park", "Tennis");
         court.setId(1L);

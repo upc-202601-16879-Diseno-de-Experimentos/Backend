@@ -38,7 +38,7 @@ class PaymentCommandServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        user = new UserProfile("John Doe", "john@example.com", "123456789");
+        user = new UserProfile(null, "John Doe", "john@example.com", "123456789");
         user.setId(1L);
         payment = new Payment(new BigDecimal("50.00"), user);
         payment.setId(1L);

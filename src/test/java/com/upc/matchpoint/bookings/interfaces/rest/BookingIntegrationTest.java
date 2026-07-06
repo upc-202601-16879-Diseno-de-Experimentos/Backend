@@ -57,7 +57,7 @@ class BookingIntegrationTest {
         courtRepository.deleteAll();
 
         // Arrange: Preparar datos base en la BD
-        user = new UserProfile("Integration User", "test@integration.com", "999888777");
+        user = new UserProfile(null, "Integration User", "test@integration.com", "999888777");
         user = userProfileRepository.save(user);
 
         court = new Court("Cancha de Integración", "Sede Norte", "Tennis");

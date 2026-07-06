@@ -32,7 +32,7 @@ class UserProfileCommandServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        userProfile = new UserProfile("John Doe", "john@example.com", "123456789");
+        userProfile = new UserProfile(null, "John Doe", "john@example.com", "123456789");
         userProfile.setId(1L);
     }
 
@@ -41,7 +41,7 @@ class UserProfileCommandServiceImplTest {
     void handleCreateUserProfile_ShouldReturnUserProfile_WhenEmailDoesNotExist() {
         // unitTest
         // Arrange
-        CreateUserProfileCommand command = new CreateUserProfileCommand("John Doe", "john@example.com", "123456789");
+        CreateUserProfileCommand command = new CreateUserProfileCommand(null, "John Doe", "john@example.com", "123456789");
         when(userProfileRepository.existsByEmail("john@example.com")).thenReturn(false);
         when(userProfileRepository.save(any(UserProfile.class))).thenReturn(userProfile);
 
@@ -59,7 +59,7 @@ class UserProfileCommandServiceImplTest {
     void handleCreateUserProfile_ShouldThrowException_WhenEmailExists() {
         // unitTest
         // Arrange
-        CreateUserProfileCommand command = new CreateUserProfileCommand("John Doe", "john@example.com", "123456789");
+        CreateUserProfileCommand command = new CreateUserProfileCommand(null, "John Doe", "john@example.com", "123456789");
         when(userProfileRepository.existsByEmail("john@example.com")).thenReturn(true);
 
         // Act & Assert
