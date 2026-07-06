@@ -97,9 +97,9 @@ public class DataSeeder implements CommandLineRunner {
 
         // 2. User Profiles
         if (userProfileRepository.count() == 0) {
-            userProfileRepository.save(new UserProfile("Carlos Mendoza", "atleta1@matchpoint.com", "999-001"));
-            userProfileRepository.save(new UserProfile("Ana García", "atleta2@matchpoint.com", "999-002"));
-            userProfileRepository.save(new UserProfile("Juan Pérez", "atleta3@matchpoint.com", "999-003"));
+            userProfileRepository.save(new UserProfile(null, "Carlos Mendoza", "atleta1@matchpoint.com", "999-001"));
+            userProfileRepository.save(new UserProfile(null, "Ana García", "atleta2@matchpoint.com", "999-002"));
+            userProfileRepository.save(new UserProfile(null, "Juan Pérez", "atleta3@matchpoint.com", "999-003"));
         }
 
         // 3. Coaches

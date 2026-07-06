@@ -6,6 +6,7 @@ import com.upc.matchpoint.users.interfaces.rest.resources.CreateUserProfileResou
 public class CreateUserProfileCommandFromResourceAssembler {
     public static CreateUserProfileCommand toCommandFromResource(CreateUserProfileResource resource) {
         return new CreateUserProfileCommand(
+                resource.userId(),
                 resource.name(),
                 resource.email(),
                 resource.phone()

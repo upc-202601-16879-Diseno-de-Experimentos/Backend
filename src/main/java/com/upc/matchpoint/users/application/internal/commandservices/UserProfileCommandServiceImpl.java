@@ -22,7 +22,7 @@ public class UserProfileCommandServiceImpl implements UserProfileCommandService 
         if (userProfileRepository.existsByEmail(command.email())) {
             throw new IllegalArgumentException("User with email " + command.email() + " already exists");
         }
-        var userProfile = new UserProfile(command.name(), command.email(), command.phone());
+        var userProfile = new UserProfile(command.userId(), command.name(), command.email(), command.phone());
         var createdUserProfile = userProfileRepository.save(userProfile);
         return Optional.of(createdUserProfile);
     }

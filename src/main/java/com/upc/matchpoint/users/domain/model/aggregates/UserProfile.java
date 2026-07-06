@@ -15,6 +15,9 @@ public class UserProfile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = true)
+    private Long userId;
+
     @Column(nullable = false)
     private String name;
 
@@ -25,7 +28,8 @@ public class UserProfile {
     private String phone;
 
 
-    public UserProfile(String name, String email, String phone) {
+    public UserProfile(Long userId, String name, String email, String phone) {
+        this.userId = userId;
         this.name = name;
         this.email = email;
         this.phone = phone;
@@ -40,6 +44,10 @@ public class UserProfile {
     // Manual getters
     public Long getId() {
         return this.id;
+    }
+
+    public Long getUserId() {
+        return this.userId;
     }
 
     public String getName() {
@@ -57,6 +65,10 @@ public class UserProfile {
     // Manual setters
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public void setName(String name) {
